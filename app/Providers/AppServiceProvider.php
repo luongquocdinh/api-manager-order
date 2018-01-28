@@ -7,12 +7,16 @@ use App\Repositories\Interfaces\ProductRepositoryContract;
 use App\Repositories\Functions\ProductRepository;
 use App\Repositories\Interfaces\CustomerRepositoryContract;
 use App\Repositories\Functions\CustomerRepository;
+use App\Repositories\Interfaces\OrderRepositoryContract;
+use App\Repositories\Functions\OrderRepository;
 
 // Services
 use App\Services\Interfaces\ProductServiceContract;
 use App\Services\Functions\ProductService;
 use App\Services\Interfaces\CustomerServiceContract;
 use App\Services\Functions\CustomerService;
+use App\Services\Interfaces\OrderServiceContract;
+use App\Services\Functions\OrderService;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -43,5 +47,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(CustomerRepositoryContract::class, CustomerRepository::class);
         $this->app->bind(CustomerServiceContract::class, CustomerService::class);
+
+        $this->app->bind(OrderRepositoryContract::class, OrderRepository::class);
+        $this->app->bind(OrderServiceContract::class, OrderService::class);
     }
 }

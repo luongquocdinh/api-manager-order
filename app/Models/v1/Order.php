@@ -8,12 +8,17 @@ class Order extends BaseModel
     protected $table = 'orders';
 
     protected $fillable = [
-        'customer_id', 'partner_id', 'delivery_date', 'created_at', 'created_by',
+        'customer_id', 'user_id', 'delivery_date', 'created_at', 'created_by',
         'updated_at', 'updated_by', 'is_enable'
     ];
 
     public function po_product()
     {
-        return $this->hasMany('App\Models\v1\OrderProduct');
+        return $this->hasMany('App\Models\v1\OrderProduct', 'order_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\v1\User', 'id', 'user_id');
     }
 }
