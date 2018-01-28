@@ -4,7 +4,7 @@ namespace App\Http\Controllers\v1\Auth;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use JWTAuth;
@@ -14,7 +14,7 @@ use JWTAuthException;
 use App\Models\v1\User;
 use App\Models\v1\Role;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     public function __construct(User $user)
     {

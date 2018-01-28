@@ -40,6 +40,10 @@ Route::group(['middleware' => ['jwt.auth', 'role:admin'], 'prefix' => 'v1'], fun
 });
 
 Route::group(['middleware' => ['jwt.auth', 'role:partner'], 'prefix' => 'v1'], function () {
-    
+    // Customer
+    Route::get('customers', 'v1\Partner\CustomerController@getList');
+    Route::get('customer/{id}', 'v1\Partner\CustomerController@findProductById');
+    Route::post('customer', 'v1\Partner\CustomerController@store');
+    Route::put('customer/{id}', 'v1\Partner\CustomerController@update');
 });
 

@@ -18,7 +18,8 @@ class CreateTableCustomers extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address');
-            $table->string('email');
+            $table->integer('partner_id');
+            $table->string('email')->nullable();
             $table->string('phone');
             $table->enum('is_delete', [0, 1])->default(0);
             $table->string('note')->nullable();
