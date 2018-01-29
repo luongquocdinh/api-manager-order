@@ -21,4 +21,9 @@ class Order extends BaseModel
     {
         return $this->belongsTo('App\Models\v1\User', 'id', 'user_id');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\v1\Customer', 'id', 'customer_id');
+    }
 }
