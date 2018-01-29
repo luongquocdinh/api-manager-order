@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-use JWTAuth;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -49,7 +48,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return response()->json(['token' => $request->token, 'user' => JWTAuth::toUser($request->token)->id]);
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
             switch (get_class($exception->getPrevious())) {
                 case \App\Exceptions\Handler::class:
