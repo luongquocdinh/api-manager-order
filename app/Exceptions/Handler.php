@@ -48,6 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        return response()->json(['token' => $request]);
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
             switch (get_class($exception->getPrevious())) {
                 case \App\Exceptions\Handler::class:
