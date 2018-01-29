@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::get('/', function (Request $request) {
     return response()->json([
         'domain' => 'Medicine Api',
-        'method' => 'GET'
+        'method' => 'GET',
+        'data' => JWTAuth::toUser($request->token)
     ], 200);
 });
 Route::post('/', function (Request $request) {
