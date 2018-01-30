@@ -29,6 +29,12 @@ class UserRepository implements UserRepositoryContract
         return $this->model->find($id);
     }
 
+    public function findByEmail($email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
+
     public function store($data)
     {
         return $this->model->create($data)->id;

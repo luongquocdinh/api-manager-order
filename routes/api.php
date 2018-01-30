@@ -31,15 +31,15 @@ Route::post('v1/login', 'v1\Auth\UserController@login');
 
 Route::group(['middleware' => ['jwt.auth', 'role:admin'], 'prefix' => 'v1'], function () {
     Route::post('addRoles', 'v1\Auth\RoleController@addRole');
-    
+});
+
+Route::group(['middleware' => ['jwt.auth', 'role:partner'], 'prefix' => 'v1'], function () {
     // Product
     Route::get('products', 'v1\MasterData\ProductController@getList');
     Route::get('product/{id}', 'v1\MasterData\ProductController@findProductById');
     Route::post('product', 'v1\MasterData\ProductController@store');
     Route::put('product/{id}', 'v1\MasterData\ProductController@update');
-});
 
-Route::group(['middleware' => ['jwt.auth', 'role:partner'], 'prefix' => 'v1'], function () {
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');
     Route::get('customer/{id}', 'v1\Partner\CustomerController@findProductById');

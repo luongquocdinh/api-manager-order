@@ -30,6 +30,11 @@ class UserService implements UserServiceContract
         return $this->repository->find($id);
     }
 
+    public function findByEmail($email)
+    {
+        return $this->repository->findByEmail($email);
+    }
+
     public function store($data)
     {
         return $this->repository->store($data);

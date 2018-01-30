@@ -13,6 +13,8 @@ interface UserRepositoryContract
 
     public function find($id);
 
+    public function findByEmail($email);
+
     public function store($data);
 
     public function update($id, $data);

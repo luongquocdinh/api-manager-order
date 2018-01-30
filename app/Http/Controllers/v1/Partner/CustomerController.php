@@ -36,7 +36,7 @@ class CustomerController extends ApiController
         }
         
         $data['created_by'] = JWTAuth::toUser($request->token)->id;
-        $data['partner_id'] = JWTAuth::toUser($request->token)->id;
+        $data['user_id'] = JWTAuth::toUser($request->token)->id;
         
         $id = $this->service->store($data);
 

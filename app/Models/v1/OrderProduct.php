@@ -8,7 +8,7 @@ class OrderProduct extends BaseModel
     protected $table = 'order_product';
 
     protected $fillable = [
-        'order_id', 'user_id', 'name', 'quantity', 'price', 'amount', 'created_at', 'created_by',
+        'order_id', 'user_id', 'name', 'quantity', 'uom', 'price', 'amount', 'note', 'created_at', 'created_by',
         'updated_at', 'updated_by'
     ];
 

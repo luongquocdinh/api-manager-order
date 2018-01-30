@@ -4,7 +4,7 @@ namespace App\Http\Controllers\v1\Auth;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use JWTAuth;
@@ -16,7 +16,7 @@ use App\Models\v1\Role;
 use App\Services\Interfaces\UserServiceContract;
 
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     public function __construct(UserServiceContract $serviceContract)
     {
@@ -37,13 +37,13 @@ class UserController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        return response()->json(['data' => $data]);
-        // $role = $request->role ? $request->role : [2];
+        $data['password'] = Hash::make($request->password);
+        $role = $request->role ? $request->role : [2];
         $id = $this->service->store($data);      
-        // if ($id) {
-        //     $user = $this->service->find($id);
-        //     $user->attachRoles($role);
-        // }
+        if ($id) {
+            $user = $this->service->find($id);
+            $user->attachRoles($role);
+        }
 
         return response()->json([
             'success' => true,
@@ -55,12 +55,13 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        $user = User::findUserByEmail($request->email);
-        // if ($user->is_active == 1) {
+        $user = $this->service->findByEmail($request->email);
+        
+        if ($user->is_active == 1) {
             if ($token = JWTAuth::attempt($credentials)) {
                 return $this->respondWithToken($token);
             }
-        // }
+        }
 
         return response()->json(['success' => false, 'status' => self::FAILED, 'error' => 'Unauthorized']);
     }
@@ -98,6 +99,8 @@ class UserController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+            'success' => false, 
+            'status' => self::FAILED,
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => $this->guard()->factory()->getTTL() * 60,
