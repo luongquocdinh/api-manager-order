@@ -56,10 +56,10 @@ class UserController extends Controller
             'email'    => $email,
             'password' => Hash::make($password),
         ]);
-        if ($user) {
-            $user = User::findUserByEmail($email);
-            $user->attachRoles($role);
-        }
+        // if ($user) {
+        //     $user = User::findUserByEmail($email);
+        //     $user->attachRoles($role);
+        // }
 
         return response()->json([
             'success' => true,
