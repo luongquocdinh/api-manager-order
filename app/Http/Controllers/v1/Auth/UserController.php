@@ -37,14 +37,12 @@ class UserController extends ApiController
             'email'           => 'required|email|max:255|unique:users',
             'password'        => 'required|min:6',
         ];
-        var_dump($rules);
         $input = $request->only(
             'name',
             'email',
             'password',
             'role'
         );
-        var_dump($input);
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
             $error = $validator->messages()->toJson();
@@ -54,7 +52,6 @@ class UserController extends ApiController
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
-        dd($name, $email, $password);
         $role = isset($request->role) ? $request->role : [];
         $user = User::create([
             'name' => $name,

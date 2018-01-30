@@ -26,7 +26,7 @@ Route::post('/', function (Request $request) {
     ], 200);
 });
 
-Route::post('v1/sign-up', 'v1\Auth\UserController@register');
+Route::post('v1/register', 'v1\Auth\UserController@register');
 Route::post('v1/login', 'v1\Auth\UserController@login');
 
 Route::group(['middleware' => ['jwt.auth', 'role:admin'], 'prefix' => 'v1'], function () {
