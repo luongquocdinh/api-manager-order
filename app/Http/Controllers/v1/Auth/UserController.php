@@ -50,16 +50,16 @@ class UserController extends Controller
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
-        $role = isset($request->role) ? $request->role : [];
+        $role = isset($request->role) ? $request->role : [2];
         $user = User::create([
             'name' => $name,
             'email'    => $email,
             'password' => Hash::make($password),
         ]);
-        // if ($user) {
-        //     $user = User::findUserByEmail($email);
-        //     $user->attachRoles($role);
-        // }
+        if ($user) {
+            $user = User::findUserByEmail($email);
+            $user->attachRoles($role);
+        }
 
         return response()->json([
             'success' => true,
