@@ -37,6 +37,7 @@ class UserController extends Controller
         if (!is_array($data)) {
             return $data;
         }
+        return response()->json(['data' => $data]);
         // $role = $request->role ? $request->role : [2];
         $id = $this->service->store($data);      
         // if ($id) {
