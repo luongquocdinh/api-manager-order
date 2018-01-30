@@ -13,4 +13,19 @@ class Controller extends BaseController
 
     const SUCCESS = 200;
     const FAILED = 401;
+
+    protected function validateData(array $rules, Request $request)
+    {
+        $input = $request->all();
+        $validator = \Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => self::FAILED,
+                'message' => $validator->messages(),
+            ], self::FAILED);
+        } else {
+            return $input;
+        }
+    }
 }
