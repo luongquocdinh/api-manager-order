@@ -13,11 +13,14 @@ use Validator;
 use JWTAuthException;
 use App\Models\v1\User;
 use App\Models\v1\Role;
+use App\Services\Interfaces\UserServiceContract;
+
 
 class UserController extends Controller
 {
-    public function __construct()
+    public function __construct(UserServiceContract $serviceContract)
     {
+        $this->service = $serviceContract;
         $this->middleware('jwt.auth', ['except' => ['register', 'login']]);
     }
 
@@ -29,32 +32,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
-    {
-        $rules = [
-            'name'        => 'required|max:255',
-            'email'           => 'required|email|max:255|unique:users',
-            'password'        => 'required|min:6',
-        ];
-        $input = $request->only(
-            'name',
-            'email',
-            'password',
-            'role'
-        );
-        
-        $this->validateData($rules, $input);
-
-        $name = $request->name;
-        $email = $request->email;
-        $password = $request->password;
-        $role = isset($request->role) ? $request->role : [2];
-        $user = User::create([
-            'name' => $name,
-            'email'    => $email,
-            'password' => Hash::make($password),
-        ]);
-        if ($user) {
-            $user = User::findUserByEmail($email);
+    {   
+        $data = $this->validateData($this->rulesUser(), $request);
+        if (!is_array($data)) {
+            return $data;
+        }
+        $role = $request->role ? $request->role : [2];
+        $id = $this->service->store($data);      
+        if ($id) {
+            $user = $this->service->find($id);
             $user->attachRoles($role);
         }
 
@@ -126,4 +112,16 @@ class UserController extends Controller
     {
         return Auth::guard('api');
     }
+
+    /**
+     * @return array
+     */
+     private function rulesUser()
+     {
+         return [
+            'name'        => 'required|max:255',
+            'email'       => 'required|email|max:255|unique:users',
+            'password'    => 'required|min:6',
+         ];
+     }
 }

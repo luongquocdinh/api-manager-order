@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryContract
 
     public function store($data)
     {
-        return $this->model->create($data);
+        return $this->model->create($data)->id;
     }
 
     public function update($id, $data)
