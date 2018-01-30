@@ -11,14 +11,17 @@ use JWTAuth;
 use Hash;
 use Validator;
 use JWTAuthException;
-use App\Models\v1\User;
+use App\Services\Interfaces\UserServiceContract;
 use App\Models\v1\Role;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
-    public function __construct()
+    protected $service;
+    
+    public function __construct(UserServiceContract $serviceContract)
     {
-        $this->middleware('jwt.auth', ['except' => ['register', 'login']]);
+        $this->service = $serviceContract;
+        $this->middleware('jwt.auth');
     }
 
     /**
@@ -30,32 +33,13 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-        $rules = [
-            'name'        => 'required|max:255',
-            'email'           => 'required|email|max:255|unique:users',
-            'password'        => 'required|min:6',
-        ];
-        $input = $request->only(
-            'name',
-            'email',
-            'password',
-            'role'
-        );
-        $validator = Validator::make($input, $rules);
-        if ($validator->fails()) {
-            $error = $validator->messages()->toJson();
-
-            return response()->json(['success' => false, 'status' => self::FAILED, 'error' => $error]);
+        $data = $this->validateData($this->rulesUser(), $request);
+        if (!is_array($data)) {
+            return $data;
         }
-        $name = $request->name;
-        $email = $request->email;
-        $password = $request->password;
-        $role = isset($request->role) ? $request->role : [];
-        $user = User::create([
-            'name' => $name,
-            'email'    => $email,
-            'password' => Hash::make($password),
-        ]);
+
+        $user = $this->service->store($data);
+        
         if ($user) {
             $user = User::findUserByEmail($email);
             $user->attachRoles($role);
@@ -129,4 +113,17 @@ class UserController extends Controller
     {
         return Auth::guard('api');
     }
+
+    /**
+     * @return array
+     */
+     private function rulesUser()
+     {
+         return [
+            'name'        => 'required|max:255',
+            'email'       => 'required|email|max:255|unique:users',
+            'password'    => 'required|min:6',
+            'role'        => 'required'
+         ];
+     }
 }
