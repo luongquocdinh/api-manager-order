@@ -41,6 +41,7 @@ class UserController extends Controller
             'password',
             'role'
         );
+        return response()->json(['daa' => $input]);
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
             $error = $validator->messages()->toJson();
