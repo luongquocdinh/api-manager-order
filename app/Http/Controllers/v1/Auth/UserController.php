@@ -37,17 +37,17 @@ class UserController extends Controller
         if (!is_array($data)) {
             return $data;
         }
-        $role = $request->role ? $request->role : [2];
+        // $role = $request->role ? $request->role : [2];
         $id = $this->service->store($data);      
-        if ($id) {
-            $user = $this->service->find($id);
-            $user->attachRoles($role);
-        }
+        // if ($id) {
+        //     $user = $this->service->find($id);
+        //     $user->attachRoles($role);
+        // }
 
         return response()->json([
             'success' => true,
             'status'  => self::SUCCESS,
-            'data'    => $user,
+            'data'    => $this->service->find($id)
         ]);
     }
 
