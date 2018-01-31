@@ -39,7 +39,7 @@ class UserController extends ApiController
         }
         $data['password'] = Hash::make($request->password);
         $role = $request->role ? $request->role : [2];
-        $id = $this->service->store($data);      
+        $id = $this->service->store($data);     
         if ($id) {
             $user = $this->service->find($id);
             $user->attachRoles($role);
