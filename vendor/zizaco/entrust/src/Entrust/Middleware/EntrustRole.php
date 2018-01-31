@@ -42,7 +42,11 @@ class EntrustRole
 		}
 
 		if ($this->auth->guest() || !$request->user()->hasRole($roles)) {
-			abort(403);
+			return response()->json([
+				'success' => false,
+				'status'  => 403,
+				'message' => 'Permission have not accept'
+			]);
 		}
 
 		return $next($request);
