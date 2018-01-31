@@ -26,14 +26,16 @@ Route::post('/', function (Request $request) {
     ], 200);
 });
 
-Route::post('v1/register', 'v1\Auth\UserController@register');
-Route::post('v1/login', 'v1\Auth\UserController@login');
+Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
+    Route::post('register', 'v1\Auth\UserController@register');
+    Route::post('login', 'v1\Auth\UserController@login');
+});
 
-Route::group(['middleware' => ['jwt.auth', 'role:admin'], 'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['jwt.auth', 'cors', 'role:admin'], 'prefix' => 'v1'], function () {
     Route::post('addRoles', 'v1\Auth\RoleController@addRole');
 });
 
-Route::group(['middleware' => ['jwt.auth', 'role:partner'], 'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
     // Product
     Route::get('products', 'v1\MasterData\ProductController@getList');
     Route::get('product/{id}', 'v1\MasterData\ProductController@findProductById');
