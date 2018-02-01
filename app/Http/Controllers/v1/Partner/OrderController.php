@@ -11,6 +11,7 @@ use App\Http\Resources\OrderResource;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\OrderServiceContract;
 use App\Services\Interfaces\OrderProductServiceContract;
+use Carbon\Carbon;
 
 class OrderController extends ApiController
 {
@@ -40,7 +41,7 @@ class OrderController extends ApiController
         $order_info = [
             "customer_id" => $request->customer_id,
             "user_id" => JWTAuth::toUser($request->token)->id,
-            "delivery_date" => Carbon::parser($request->delivery_date)->timestamp,
+            "delivery_date" => Carbon::parse($request->delivery_date)->timestamp,
             "created_by" => JWTAuth::toUser($request->token)->id,
         ];
 
@@ -97,7 +98,7 @@ class OrderController extends ApiController
         return [
             'customer_id' => 'required|numeric',
             'user_id' => 'required|numeric',
-            'delivery_date' => 'required|numeric'
+            'delivery_date' => 'required'
         ];
     }
 }
