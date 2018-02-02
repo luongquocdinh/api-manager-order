@@ -19,7 +19,7 @@ class CreateTableOrder extends Migration
             $table->increments('id');            
             $table->integer('customer_id');
             $table->integer('user_id');
-            $table->integer('delevery_date');
+            $table->integer('delivery_date');
             $table->string('note')->nullable();
             $table->integer('created_at')->nullable();
             $table->integer('created_by')->nullable();

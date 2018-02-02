@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Carbon\Carbon;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -68,5 +69,17 @@ class User extends Authenticatable implements JWTSubject
     public function order()
     {
         return $this->hasMany('App\Models\v1\Order', 'user_id', 'id');
+    }
+
+    public function setCreatedAt($value)
+    {
+        $this->attributes['created_at'] = Carbon::now()->timestamp;
+        return $this;
+    }
+
+    public function setUpdatedAt($value)
+    {
+        $this->attributes['updated_at'] = Carbon::now()->timestamp;
+        return $this;
     }
 }

@@ -39,17 +39,19 @@ class OrderController extends ApiController
         }
 
         $order_info = [
-            "customer_id" => $request->customer_id,
-            "user_id" => JWTAuth::toUser($request->token)->id,
-            "delivery_date" => Carbon::parse($request->delivery_date)->timestamp,
-            "created_by" => JWTAuth::toUser($request->token)->id,
+            'customer_id' => $request->customer_id,
+            'user_id' => JWTAuth::toUser($request->token)->id,
+            'delivery_date' => Carbon::parse($request->delivery_date)->timestamp,
+            'created_by' => JWTAuth::toUser($request->token)->id,
+            'note' => $request->note
         ];
-
+        
         $po_product = $request->po_product;
         
         $id = $this->service->store($order_info);
         foreach ($po_product as $key => $product) {
             $product['order_id'] = $id;
+            $product['user_id'] = JWTAuth::toUser($request->token)->id;
             $product['created_by'] = JWTAuth::toUser($request->token)->id;
             $this->po_product->store($product);
         }
