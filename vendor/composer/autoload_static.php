@@ -13,117 +13,38 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
-        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
     );
 
-    public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'Z' => 
-        array (
-            'Zizaco\\Entrust\\' => 15,
-        ),
-        'X' => 
-        array (
-            'XdgBaseDir\\' => 11,
-        ),
-        'W' => 
-        array (
-            'Whoops\\' => 7,
-            'Webmozart\\Assert\\' => 17,
-        ),
-        'T' => 
-        array (
-            'Tymon\\JWTAuth\\' => 14,
-            'TijsVerkoyen\\CssToInlineStyles\\' => 31,
-            'Tests\\' => 6,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Thanks\\' => 15,
-            'Symfony\\Polyfill\\Util\\' => 22,
-            'Symfony\\Polyfill\\Php70\\' => 23,
-            'Symfony\\Polyfill\\Php56\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\VarDumper\\' => 28,
-            'Symfony\\Component\\Translation\\' => 30,
-            'Symfony\\Component\\Routing\\' => 26,
-            'Symfony\\Component\\Process\\' => 26,
-            'Symfony\\Component\\HttpKernel\\' => 29,
-            'Symfony\\Component\\HttpFoundation\\' => 33,
-            'Symfony\\Component\\Finder\\' => 25,
-            'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Symfony\\Component\\Debug\\' => 24,
-            'Symfony\\Component\\CssSelector\\' => 30,
-            'Symfony\\Component\\Console\\' => 26,
-        ),
-        'R' => 
-        array (
-            'Ramsey\\Uuid\\' => 12,
-        ),
-        'P' => 
-        array (
-            'Psy\\' => 4,
-            'Psr\\SimpleCache\\' => 16,
-            'Psr\\Log\\' => 8,
-            'Psr\\Container\\' => 14,
-            'PhpParser\\' => 10,
-        ),
-        'N' => 
-        array (
-            'Namshi\\JOSE\\' => 12,
-        ),
-        'M' => 
-        array (
-            'Monolog\\' => 8,
-        ),
-        'L' => 
-        array (
-            'League\\Flysystem\\' => 17,
-            'Laravel\\Tinker\\' => 15,
-        ),
-        'I' => 
-        array (
-            'Illuminate\\' => 11,
-        ),
-        'F' => 
-        array (
-            'Fideloper\\Proxy\\' => 16,
-            'Faker\\' => 6,
-        ),
-        'E' => 
-        array (
-            'Egulias\\EmailValidator\\' => 23,
-        ),
-        'D' => 
-        array (
-            'Dotenv\\' => 7,
-            'Doctrine\\Instantiator\\' => 22,
-            'Doctrine\\Common\\Inflector\\' => 26,
-            'DeepCopy\\' => 9,
-        ),
-        'C' => 
-        array (
-            'Cron\\' => 5,
-            'Carbon\\' => 7,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
-        ),
+    public static $firstCharsPsr4 = array (
+        'p' => true,
+        'Z' => true,
+        'X' => true,
+        'W' => true,
+        'T' => true,
+        'S' => true,
+        'R' => true,
+        'P' => true,
+        'N' => true,
+        'M' => true,
+        'L' => true,
+        'I' => true,
+        'F' => true,
+        'E' => true,
+        'D' => true,
+        'C' => true,
+        'A' => true,
     );
 
     public static $prefixDirsPsr4 = array (
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Zizaco\\Entrust\\' => 
         array (
@@ -374,6 +295,7 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         'App\\Models\\v1\\OrderProduct' => __DIR__ . '/../..' . '/app/Models/v1/OrderProduct.php',
         'App\\Models\\v1\\Product' => __DIR__ . '/../..' . '/app/Models/v1/Product.php',
         'App\\Models\\v1\\Role' => __DIR__ . '/../..' . '/app/Models/v1/Role.php',
+        'App\\Models\\v1\\RoleUser' => __DIR__ . '/../..' . '/app/Models/v1/RoleUser.php',
         'App\\Models\\v1\\User' => __DIR__ . '/../..' . '/app/Models/v1/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -3614,7 +3536,9 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         'Symfony\\Polyfill\\Util\\Binary' => __DIR__ . '/..' . '/symfony/polyfill-util/Binary.php',
         'Symfony\\Polyfill\\Util\\BinaryNoFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryNoFuncOverload.php',
         'Symfony\\Polyfill\\Util\\BinaryOnFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryOnFuncOverload.php',
+        'Symfony\\Polyfill\\Util\\LegacyTestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/LegacyTestListener.php',
         'Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListener.php',
+        'Symfony\\Polyfill\\Util\\TestListenerTrait' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerTrait.php',
         'Symfony\\Thanks\\Command\\ThanksCommand' => __DIR__ . '/..' . '/symfony/thanks/src/Command/ThanksCommand.php',
         'Symfony\\Thanks\\Thanks' => __DIR__ . '/..' . '/symfony/thanks/src/Thanks.php',
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
@@ -3809,7 +3733,7 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixLengthsPsr4;
+            $loader->firstCharsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$firstCharsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$classMap;

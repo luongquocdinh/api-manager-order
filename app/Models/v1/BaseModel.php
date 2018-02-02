@@ -15,14 +15,8 @@ class BaseModel extends Model
 {
     protected $casts = [
         'created_at' => 'timestamp',
-        'updated_at' => 'timestamp',
-        'deleted_at' => 'timestamp'
+        'updated_at' => 'timestamp'
     ];
-
-    public function scopeDeletedAt($query)
-    {
-        return $query->where('deleted_at', null);
-    }
 
     public function setCreatedAt($value)
     {
