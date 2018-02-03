@@ -17,7 +17,10 @@ class CreateTableOrder extends Migration
         //
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');            
-            $table->integer('customer_id');
+            $table->integer('customer_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->integer('user_id');
             $table->integer('delivery_date');
             $table->string('note')->nullable();

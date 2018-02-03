@@ -40,6 +40,9 @@ class OrderController extends ApiController
 
         $order_info = [
             'customer_id' => $request->customer_id,
+            'name' => $request->name,
+            'address' => $request->address,
+            'phone' => $request->phone,
             'user_id' => JWTAuth::toUser($request->token)->id,
             'delivery_date' => Carbon::parse($request->delivery_date)->timestamp,
             'created_by' => JWTAuth::toUser($request->token)->id,
@@ -61,18 +64,32 @@ class OrderController extends ApiController
 
     public function findProductById($id)
     {
-        return new OrderResource(optional($this->service->find($id)));
+        $order = $this->service->find($id);
+        $po_product = $order->po_product;
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'data' => $order
+        ]);
     }
 
     public function update(Request $request, $id)
     {
         $data = $this->validateData([], $request);
+        
         if (!is_array($data)) {
             return $data;
         }
-
         $data['updated_by'] = JWTAuth::toUser($request->token)->id;
-
+        $this->service->update($id, $data);
+        if ($request->po_product) {
+            $this->po_product->deleteByPartner($id);
+            foreach ($request->address as $key => $address) {
+                $address['partner_info_id'] = $id;
+                $address['created_by'] = JWTAuth::toUser($request->token)->id;
+                $this->address->store($address);
+            }
+        }
         if ($this->service->update($id, $data)) {
             return new OrderResource(optional($this->service->find($id)));
         } else {
@@ -98,8 +115,6 @@ class OrderController extends ApiController
     private function rulesProduct()
     {
         return [
-            'customer_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
             'delivery_date' => 'required'
         ];
     }

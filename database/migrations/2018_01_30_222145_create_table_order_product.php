@@ -18,8 +18,9 @@ class CreateTableOrderProduct extends Migration
             $table->increments('id');            
             $table->integer('order_id');
             $table->integer('user_id');
+            $table->integer('product_id')->nullable();
             $table->string('name');
-            $table->string('uom');
+            $table->string('uom')->nullable();
             $table->integer('quantity');
             $table->integer('price');
             $table->integer('amount');
