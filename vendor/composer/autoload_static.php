@@ -19,24 +19,108 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
     );
 
-    public static $firstCharsPsr4 = array (
-        'p' => true,
-        'Z' => true,
-        'X' => true,
-        'W' => true,
-        'T' => true,
-        'S' => true,
-        'R' => true,
-        'P' => true,
-        'N' => true,
-        'M' => true,
-        'L' => true,
-        'I' => true,
-        'F' => true,
-        'E' => true,
-        'D' => true,
-        'C' => true,
-        'A' => true,
+    public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'Z' => 
+        array (
+            'Zizaco\\Entrust\\' => 15,
+        ),
+        'X' => 
+        array (
+            'XdgBaseDir\\' => 11,
+        ),
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+            'Webmozart\\Assert\\' => 17,
+        ),
+        'T' => 
+        array (
+            'Tymon\\JWTAuth\\' => 14,
+            'TijsVerkoyen\\CssToInlineStyles\\' => 31,
+            'Tests\\' => 6,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Thanks\\' => 15,
+            'Symfony\\Polyfill\\Util\\' => 22,
+            'Symfony\\Polyfill\\Php70\\' => 23,
+            'Symfony\\Polyfill\\Php56\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
+            'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\HttpKernel\\' => 29,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
+            'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+            'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\CssSelector\\' => 30,
+            'Symfony\\Component\\Console\\' => 26,
+        ),
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+        ),
+        'P' => 
+        array (
+            'Psy\\' => 4,
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
+            'Psr\\Container\\' => 14,
+            'PhpParser\\' => 10,
+        ),
+        'N' => 
+        array (
+            'Namshi\\JOSE\\' => 12,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+        'L' => 
+        array (
+            'League\\Flysystem\\' => 17,
+            'Laravel\\Tinker\\' => 15,
+        ),
+        'I' => 
+        array (
+            'Illuminate\\' => 11,
+        ),
+        'F' => 
+        array (
+            'Fideloper\\Proxy\\' => 16,
+            'Faker\\' => 6,
+        ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+            'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
+            'DeepCopy\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Cron\\' => 5,
+            'Carbon\\' => 7,
+        ),
+        'B' => 
+        array (
+            'Barryvdh\\Cors\\' => 14,
+        ),
+        'A' => 
+        array (
+            'Asm89\\Stack\\' => 12,
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -218,6 +302,14 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Barryvdh\\Cors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-cors/src',
+        ),
+        'Asm89\\Stack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -280,6 +372,7 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         'App\\Http\\Controllers\\v1\\Partner\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/v1/Partner/CustomerController.php',
         'App\\Http\\Controllers\\v1\\Partner\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/v1/Partner/OrderController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\Cors' => __DIR__ . '/../..' . '/app/Http/Middleware/Cors.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
@@ -322,9 +415,14 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
         'App\\Services\\Interfaces\\OrderServiceContract' => __DIR__ . '/../..' . '/app/Services/Interfaces/OrderServiceContract.php',
         'App\\Services\\Interfaces\\ProductServiceContract' => __DIR__ . '/../..' . '/app/Services/Interfaces/ProductServiceContract.php',
         'App\\Services\\Interfaces\\UserServiceContract' => __DIR__ . '/../..' . '/app/Services/Interfaces/UserServiceContract.php',
-        'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
+        'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
+        'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+        'Barryvdh\\Cors\\HandleCors' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandleCors.php',
+        'Barryvdh\\Cors\\HandlePreflight' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandlePreflight.php',
+        'Barryvdh\\Cors\\LumenServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/LumenServiceProvider.php',
+        'Barryvdh\\Cors\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/ServiceProvider.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -3733,7 +3831,7 @@ class ComposerStaticInit495711c2d278ef82205264456c8ad18e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->firstCharsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$firstCharsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit495711c2d278ef82205264456c8ad18e::$classMap;
