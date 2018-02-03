@@ -56,10 +56,11 @@ class UserController extends ApiController
     {
         $credentials = $request->only('email', 'password');
         $user = $this->service->findByEmail($request->email);
-        
-        if ($user->is_active == 1) {
-            if ($token = JWTAuth::attempt($credentials)) {
-                return $this->respondWithToken($token);
+        if ($user) {
+            if ($user->is_active == 1) {
+                if ($token = JWTAuth::attempt($credentials)) {
+                    return $this->respondWithToken($token);
+                }
             }
         }
 
