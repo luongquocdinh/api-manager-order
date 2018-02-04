@@ -52,4 +52,9 @@ class OrderProductRepository implements OrderProductRepositoryContract
         return $model->delete();
     }
 
+    public function deleteByOrder($id)
+    {
+        return $this->model->where('order_id', $id)->delete();
+    }
+
 }

@@ -80,14 +80,18 @@ class OrderController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
+        if ($request->delivery_date) {
+            $data['delivery_date'] = Carbon::parse($request->delivery_date)->timestamp;
+        }
         $data['updated_by'] = JWTAuth::toUser($request->token)->id;
         $this->service->update($id, $data);
         if ($request->po_product) {
-            $this->po_product->deleteByPartner($id);
-            foreach ($request->address as $key => $address) {
-                $address['partner_info_id'] = $id;
-                $address['created_by'] = JWTAuth::toUser($request->token)->id;
-                $this->address->store($address);
+            $this->po_product->deleteByOrder($id);
+            foreach ($request->po_product as $key => $po_product) {
+                $po_product['order_id'] = $id;
+                $po_product['user_id'] = JWTAuth::toUser($request->token)->id;
+                $po_product['created_by'] = JWTAuth::toUser($request->token)->id;
+                $this->po_product->store($po_product);
             }
         }
         if ($this->service->update($id, $data)) {

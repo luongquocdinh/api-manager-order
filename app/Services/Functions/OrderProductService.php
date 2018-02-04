@@ -45,4 +45,9 @@ class OrderProductService implements OrderProductServiceContract
         return $this->repository->destroy($id);
     }
 
+    public function deleteByOrder($id)
+    {
+        return $this->repository->deleteByOrder($id);
+    }
+
 }
