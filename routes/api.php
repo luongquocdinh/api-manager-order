@@ -38,6 +38,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:admin'], 'prefix' => 'v
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
     // Product
     Route::get('products', 'v1\MasterData\ProductController@getList');
+    Route::get('productAll', 'v1\MasterData\ProductController@getListAll');
     Route::get('product/{id}', 'v1\MasterData\ProductController@findProductById');
     Route::post('product', 'v1\MasterData\ProductController@store');
     Route::put('product/{id}', 'v1\MasterData\ProductController@update');

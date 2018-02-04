@@ -11,6 +11,8 @@ interface ProductServiceContract
 {
     public function paginate($page);
 
+    public function getListAll();
+
     public function find($id);
 
     public function store($data);

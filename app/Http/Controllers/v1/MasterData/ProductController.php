@@ -27,6 +27,13 @@ class ProductController extends ApiController
         return ProductResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }
 
+    public function getListAll()
+    {
+        $results = $this->service->getListAll();
+
+        return ProductResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
+    }
+
     public function store(Request $request)
     {
         $data = $this->validateData($this->rulesProduct(), $request);

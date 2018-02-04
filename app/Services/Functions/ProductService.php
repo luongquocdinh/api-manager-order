@@ -25,6 +25,11 @@ class ProductService implements ProductServiceContract
         return $this->repository->paginate($page);
     }
 
+    public function getListAll()
+    {
+        return $this->repository->getListAll();
+    }
+
     public function find($id)
     {
         return $this->repository->find($id);
