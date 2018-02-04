@@ -59,7 +59,13 @@ class OrderController extends ApiController
             $this->po_product->store($product);
         }
 
-        return new OrderResource(optional($this->service->find($id)));
+        $order = $this->service->find($id);
+        $po = $order->po_product;
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'data' => $order
+        ]);
     }
 
     public function findProductById($id)
@@ -95,7 +101,13 @@ class OrderController extends ApiController
             }
         }
         if ($this->service->update($id, $data)) {
-            return new OrderResource(optional($this->service->find($id)));
+            $order = $this->service->find($id);
+            $po_product = $order->po_product;
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'data' => $order
+            ]);
         } else {
             return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
         }
