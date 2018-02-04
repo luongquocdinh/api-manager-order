@@ -28,6 +28,13 @@ class CustomerController extends ApiController
         return CustomerResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }
 
+    public function getListAll()
+    {
+        $results = $this->service->getListAll();
+        
+        return CustomerResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
+    }
+
     public function store(Request $request)
     {
         $data = $this->validateData($this->rulesProduct(), $request);

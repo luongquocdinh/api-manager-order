@@ -45,6 +45,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
 
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');
+    Route::get('customerAll', 'v1\Partner\CustomerController@getListAll');
     Route::get('customer/{id}', 'v1\Partner\CustomerController@findProductById');
     Route::post('customer', 'v1\Partner\CustomerController@store');
     Route::put('customer/{id}', 'v1\Partner\CustomerController@update');

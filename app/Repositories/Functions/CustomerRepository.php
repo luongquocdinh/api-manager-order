@@ -24,6 +24,11 @@ class CustomerRepository implements CustomerRepositoryContract
         return $this->model->paginate($page);
     }
 
+    public function getListAll()
+    {
+        return $this->model->All();
+    }
+
     public function find($id)
     {
         return $this->model->find($id);
