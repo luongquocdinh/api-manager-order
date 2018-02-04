@@ -9,7 +9,7 @@ namespace App\Services\Interfaces;
 
 interface CustomerServiceContract
 {
-    public function paginate($page);
+    public function paginate($page, $id);
 
     public function getListAll();
 

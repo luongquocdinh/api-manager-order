@@ -21,9 +21,11 @@ class CustomerController extends ApiController
         $this->middleware('jwt.auth');
     }
 
-    public function getList()
+    public function getList(Request $request)
     {
-        $results = $this->service->paginate(Business::PAGE_NUMBER_DEFAULT);
+        $id = JWTAuth::toUser($request->token)->id;
+
+        $results = $this->service->paginate(Business::PAGE_NUMBER_DEFAULT, $id);
 
         return CustomerResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }

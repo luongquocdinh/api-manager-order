@@ -9,7 +9,7 @@ namespace App\Repositories\Interfaces;
 
 interface OrderRepositoryContract
 {
-    public function paginate($page);
+    public function paginate($page, $id);
 
     public function find($id);
 

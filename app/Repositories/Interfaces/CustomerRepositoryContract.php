@@ -9,7 +9,7 @@ namespace App\Repositories\Interfaces;
 
 interface CustomerRepositoryContract
 {
-    public function paginate($page);
+    public function paginate($page, $id);
 
     public function getListAll();
 

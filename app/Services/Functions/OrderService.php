@@ -20,9 +20,9 @@ class OrderService implements OrderServiceContract
         $this->repository = $repositoryContract;
     }
 
-    public function paginate($page)
+    public function paginate($page, $id)
     {
-        return $this->repository->paginate($page);
+        return $this->repository->paginate($page, $id);
     }
 
     public function find($id)

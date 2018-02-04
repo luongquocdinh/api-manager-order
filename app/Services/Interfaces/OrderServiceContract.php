@@ -9,7 +9,7 @@ namespace App\Services\Interfaces;
 
 interface OrderServiceContract
 {
-    public function paginate($page);
+    public function paginate($page, $id);
 
     public function find($id);
 

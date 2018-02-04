@@ -19,9 +19,9 @@ class OrderRepository implements OrderRepositoryContract
         $this->model = $order;
     }
 
-    public function paginate($page)
+    public function paginate($page, $id)
     {
-        return $this->model->paginate($page);
+        return $this->model->where('created_by', $id)->paginate($page);
     }
 
     public function find($id)

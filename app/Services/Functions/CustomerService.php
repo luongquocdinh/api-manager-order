@@ -20,9 +20,9 @@ class CustomerService implements CustomerServiceContract
         $this->repository = $repositoryContract;
     }
 
-    public function paginate($page)
+    public function paginate($page, $id)
     {
-        return $this->repository->paginate($page);
+        return $this->repository->paginate($page, $id);
     }
 
     public function getListAll()
