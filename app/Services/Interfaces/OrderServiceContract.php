@@ -11,6 +11,8 @@ interface OrderServiceContract
 {
     public function paginate($page, $id);
 
+    public function getListAll($id);
+
     public function find($id);
 
     public function store($data);

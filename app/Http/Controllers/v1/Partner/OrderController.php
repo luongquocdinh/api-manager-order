@@ -33,6 +33,15 @@ class OrderController extends ApiController
         return OrderResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }
 
+    public function getListAll(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+
+        $results = $this->service->getListAll($id);
+        
+        return OrderResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
+    }
+
     public function store(Request $request)
     {
         $data = $this->validateData($this->rulesProduct(), $request);

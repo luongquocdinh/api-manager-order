@@ -25,6 +25,11 @@ class OrderService implements OrderServiceContract
         return $this->repository->paginate($page, $id);
     }
 
+    public function getListAll($id)
+    {
+        return $this->repository->getListAll($id);
+    }
+
     public function find($id)
     {
         return $this->repository->find($id);
