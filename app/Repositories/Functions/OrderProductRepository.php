@@ -7,6 +7,7 @@
 
 namespace App\Repositories\Functions;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\v1\OrderProduct;
 use App\Repositories\Interfaces\OrderProductRepositoryContract;
 
@@ -55,6 +56,19 @@ class OrderProductRepository implements OrderProductRepositoryContract
     public function deleteByOrder($id)
     {
         return $this->model->where('order_id', $id)->delete();
+    }
+
+    public function byMonth($request, $id)
+    {
+        $results = DB::table('order_product as item')
+                ->join('products as product', 'product.id', '=', 'item.product_id')
+                ->select(DB::raw('product.name, count(item.product_id) as number'))
+                ->whereRaw('MONTH(FROM_UNIXTIME(item.created_at)) = ' . $request->month)
+                ->where('item.user_id', $id)
+                ->groupBy('item.product_id')
+                ->having('number', '!=', 0)
+                ->get();
+        return $results;
     }
 
 }

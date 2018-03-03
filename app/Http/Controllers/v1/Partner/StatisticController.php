@@ -27,4 +27,16 @@ class StatisticController extends ApiController
     {
         
     }
+
+    public function byMonth(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+        $order = $this->po_product->byMonth($request, $id);
+
+        return response()->json([
+            'status' => HttpCode::SUCCESS,
+            'message' => 'success',
+            'data' => $order
+        ]);;
+    }
 }

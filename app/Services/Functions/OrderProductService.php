@@ -50,4 +50,9 @@ class OrderProductService implements OrderProductServiceContract
         return $this->repository->deleteByOrder($id);
     }
 
+    public function byMonth($request, $id)
+    {
+        return $this->repository->byMonth($request, $id);
+    }
+
 }

@@ -20,4 +20,6 @@ interface OrderProductRepositoryContract
     public function destroy($id);
 
     public function deleteByOrder($id);
+
+    public function byMonth($request, $id);
 }
