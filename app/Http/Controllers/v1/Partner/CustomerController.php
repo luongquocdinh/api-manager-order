@@ -91,9 +91,7 @@ class CustomerController extends ApiController
     private function rulesProduct()
     {
         return [
-            'name' => 'required|max:255',
-            'address' => 'required|max:255',
-            'phone' => 'required|max:255'
+            'name' => 'required|max:255'
         ];
     }
 }
