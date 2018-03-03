@@ -57,5 +57,6 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::post('order', 'v1\Partner\OrderController@store');
     Route::put('order/{id}', 'v1\Partner\OrderController@update');
     Route::post('order/customer', 'v1\Partner\OrderController@getListOrderByCustomer');
+    Route::delete('order/delete', 'v1\Partner\OrderController@destroy');
 });
 

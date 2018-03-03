@@ -124,8 +124,9 @@ class OrderController extends ApiController
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
         $product = $this->service->find($id);
         if ($product) {
             $this->service->destroy($id);
