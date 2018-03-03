@@ -136,9 +136,16 @@ class OrderController extends ApiController
         return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
     }
 
-    public function getListOrderByCustomer($customer_id)
+    public function getListOrderByCustomer(Request $request)
     {
+        $customer_id = $request->customer_id;
+        $results = $this->service->findByCustomer($customer_id);
         
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'data' => $results
+        ]);
     }
 
     /**

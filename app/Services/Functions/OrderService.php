@@ -50,4 +50,9 @@ class OrderService implements OrderServiceContract
         return $this->repository->destroy($id);
     }
 
+    public function findByCustomer($customer_id)
+    {
+        return $this->repository->findByCustomer($customer_id);
+    }
+
 }

@@ -9,6 +9,7 @@ namespace App\Repositories\Functions;
 
 use App\Models\v1\Order;
 use App\Repositories\Interfaces\OrderRepositoryContract;
+use App\Helpers\Business;
 
 class OrderRepository implements OrderRepositoryContract
 {
@@ -55,6 +56,11 @@ class OrderRepository implements OrderRepositoryContract
         $model = $this->find($id);
 
         return $model->delete();
+    }
+
+    public function findByCustomer($customer_id)
+    {
+        return $this->model->with('po_product')->where('customer_id', $customer_id)->paginate(Business::PAGE_NUMBER_DEFAULT);
     }
 
 }
