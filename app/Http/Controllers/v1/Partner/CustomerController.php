@@ -52,13 +52,15 @@ class CustomerController extends ApiController
         return new CustomerResource(optional($this->service->find($id)));
     }
 
-    public function findProductById($id)
+    public function findCustomerById(Request $request)
     {
+        $id = $request->id;
         return new CustomerResource(optional($this->service->find($id)));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->id;
         $data = $this->validateData([], $request);
         if (!is_array($data)) {
             return $data;
