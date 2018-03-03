@@ -75,10 +75,11 @@ class CustomerController extends ApiController
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $product = $this->service->find($id);
-        if ($product) {
+        $id = $request->id;
+        $customer = $this->service->find($id);
+        if ($customer) {
             $this->service->destroy($id);
 
             return \response()->json(MessageApi::success([]), HttpCode::SUCCESS);

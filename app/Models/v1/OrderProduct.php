@@ -16,4 +16,9 @@ class OrderProduct extends BaseModel
     {
         return $this->belongsTo('App\Models\v1\Order', 'id', 'order_id');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\v1\Product', 'id', 'product_id');
+    }
 }

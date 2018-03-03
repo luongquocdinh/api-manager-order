@@ -127,14 +127,17 @@ class OrderController extends ApiController
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $product = $this->service->find($id);
-        if ($product) {
+        $order = $this->service->find($id);
+        $po_product = $order->po_product;
+        if ($order) {
             $this->service->destroy($id);
-
+            foreach($po_product as $product) {
+                $this->po_product->destroy($product->id);
+            }
             return \response()->json(MessageApi::success([]), HttpCode::SUCCESS);
         }
 
-        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOES_NOT_EXISTS]));
     }
 
     public function getListOrderByCustomer(Request $request)
