@@ -23,9 +23,16 @@ class StatisticController extends ApiController
         $this->middleware('jwt.auth');
     }
 
-    public function byDate()
+    public function byDate(Request $request)
     {
-        
+        $id = JWTAuth::toUser($request->token)->id;
+        $order = $this->po_product->byDate($request, $id);
+
+        return response()->json([
+            'status' => HttpCode::SUCCESS,
+            'message' => 'success',
+            'data' => $order
+        ]);
     }
 
     public function byMonth(Request $request)
@@ -37,6 +44,18 @@ class StatisticController extends ApiController
             'status' => HttpCode::SUCCESS,
             'message' => 'success',
             'data' => $order
-        ]);;
+        ]);
+    }
+
+    public function byYear(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+        $order = $this->po_product->byYear($request, $id);
+
+        return response()->json([
+            'status' => HttpCode::SUCCESS,
+            'message' => 'success',
+            'data' => $order
+        ]);
     }
 }

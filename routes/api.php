@@ -61,6 +61,8 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::delete('order/delete', 'v1\Partner\OrderController@destroy');
 
     // Statistic
+    Route::post('byDate', 'v1\Partner\StatisticController@byDate');
     Route::post('byMonth', 'v1\Partner\StatisticController@byMonth');
+    Route::post('byYear', 'v1\Partner\StatisticController@byYear');
 });
 

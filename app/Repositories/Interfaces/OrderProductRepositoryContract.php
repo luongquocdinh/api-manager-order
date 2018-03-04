@@ -21,5 +21,9 @@ interface OrderProductRepositoryContract
 
     public function deleteByOrder($id);
 
+    public function byDate($date, $id);
+
     public function byMonth($request, $id);
+
+    public function byYear($request, $id);
 }

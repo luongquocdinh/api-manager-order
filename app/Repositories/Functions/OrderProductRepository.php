@@ -58,12 +58,38 @@ class OrderProductRepository implements OrderProductRepositoryContract
         return $this->model->where('order_id', $id)->delete();
     }
 
+    public function byDate($date, $id)
+    {
+        $results = DB::table('order_product as item')
+                ->join('products as product', 'product.id', '=', 'item.product_id')
+                ->select(DB::raw('product.name, count(item.product_id) as number'))
+                ->where('item.user_id', $id)
+                ->whereBetween('item.created_at', $date)
+                ->groupBy('item.product_id')
+                ->having('number', '!=', 0)
+                ->get();
+        return $results;
+    }
+
     public function byMonth($request, $id)
     {
         $results = DB::table('order_product as item')
                 ->join('products as product', 'product.id', '=', 'item.product_id')
                 ->select(DB::raw('product.name, count(item.product_id) as number'))
                 ->whereRaw('MONTH(FROM_UNIXTIME(item.created_at)) = ' . $request->month)
+                ->where('item.user_id', $id)
+                ->groupBy('item.product_id')
+                ->having('number', '!=', 0)
+                ->get();
+        return $results;
+    }
+
+    public function byYear($request, $id)
+    {
+        $results = DB::table('order_product as item')
+                ->join('products as product', 'product.id', '=', 'item.product_id')
+                ->select(DB::raw('product.name, count(item.product_id) as number'))
+                ->whereRaw('YEAR(FROM_UNIXTIME(item.created_at)) = ' . $request->year)
                 ->where('item.user_id', $id)
                 ->groupBy('item.product_id')
                 ->having('number', '!=', 0)

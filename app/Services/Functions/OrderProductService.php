@@ -10,6 +10,7 @@ namespace App\Services\Functions;
 use App\Helpers\Business;
 use App\Repositories\Interfaces\OrderProductRepositoryContract;
 use App\Services\Interfaces\OrderProductServiceContract;
+use Carbon\Carbon;
 
 class OrderProductService implements OrderProductServiceContract
 {
@@ -50,9 +51,22 @@ class OrderProductService implements OrderProductServiceContract
         return $this->repository->deleteByOrder($id);
     }
 
+    public function byDate($request, $id)
+    {
+        $start = Carbon::parse($request->date . ' 00:00:00')->timestamp;
+        $end = Carbon::parse($request->date . ' 23:59:59')->timestamp;
+        $date = [$start, $end];
+        return $this->repository->byDate($date, $id);
+    }
+
     public function byMonth($request, $id)
     {
         return $this->repository->byMonth($request, $id);
+    }
+
+    public function byYear($request, $id)
+    {
+        return $this->repository->byYear($request, $id);
     }
 
 }
