@@ -35,7 +35,6 @@ class OutletProductController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
-
         $data['user_id'] = JWTAuth::toUser($request->token)->id;
         $data['created_by'] = $request->user()->id;
         $id = $this->service->store($data);
