@@ -27,7 +27,7 @@ class OutletProductRepository implements OutletProductRepositoryContract
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->with(['user', 'product'])->find($id);
     }
 
     public function store($data)
