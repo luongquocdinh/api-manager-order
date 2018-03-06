@@ -18,6 +18,10 @@ class CreateOutletProductTable extends Migration
             $table->integer('product_id');
             $table->integer('user_id');
             $table->integer('stock_balance')->default(0);
+            $table->integer('created_at')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_at')->nullable();
+            $table->integer('updated_by')->nullable();
         });
     }
 

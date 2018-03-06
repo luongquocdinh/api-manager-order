@@ -60,6 +60,10 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::post('order/customer', 'v1\Partner\OrderController@getListOrderByCustomer');
     Route::delete('order/delete', 'v1\Partner\OrderController@destroy');
 
+    // Outlet Product
+    Route::get('outlet-product', 'v1\Partner\OutletProductController@getList');
+    Route::post('outlet-product', 'v1\Partner\OutletProductController@store');
+
     // Statistic
     Route::post('byDate', 'v1\Partner\StatisticController@byDate');
     Route::post('byMonth', 'v1\Partner\StatisticController@byMonth');
