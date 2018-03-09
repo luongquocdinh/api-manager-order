@@ -31,7 +31,7 @@ class CustomerRepository implements CustomerRepositoryContract
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->with('order')->find($id);
     }
 
     public function store($data)
