@@ -27,7 +27,7 @@ class OrderRepository implements OrderRepositoryContract
 
     public function getListAll($id)
     {
-        return $this->model->orderBy('id', 'desc')->get();
+        return $this->model->where('user_id', $id)->orderBy('id', 'desc')->get();
     }
 
     public function find($id)
