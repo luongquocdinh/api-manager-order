@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\HttpCode;
 use Illuminate\Http\Resources\Json\Resource;
 
 class CustomerResource extends Resource
@@ -15,5 +16,13 @@ class CustomerResource extends Resource
     public function toArray($request)
     {
         return parent::toArray($request);
+    }
+
+    public function with($request)
+    {
+        return [
+            'status'  => HttpCode::SUCCESS,
+            'message' => 'success',
+        ];
     }
 }
