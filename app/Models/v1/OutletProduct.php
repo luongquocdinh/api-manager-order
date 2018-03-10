@@ -8,7 +8,7 @@ class OutletProduct extends BaseModel
     protected $table = 'outlet_product';
 
     protected $fillable = [
-        'user_id', 'product_id', 'stock_balance', 'created_at', 'created_by',
+        'user_id', 'product_id', 'name', 'uom', 'description', 'stock_balance', 'created_at', 'created_by',
         'updated_at', 'updated_by'
     ];
 

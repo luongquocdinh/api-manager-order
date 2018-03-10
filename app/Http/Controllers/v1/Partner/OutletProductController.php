@@ -81,7 +81,7 @@ class OutletProductController extends ApiController
     private function rulesProduct()
     {
         return [
-            'product_id' => 'required|numeric'
+            
         ];
     }
 }
