@@ -11,7 +11,7 @@ interface CustomerServiceContract
 {
     public function paginate($page, $id);
 
-    public function getListAll();
+    public function getListAll($id);
 
     public function find($id);
 

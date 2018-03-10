@@ -24,9 +24,9 @@ class CustomerRepository implements CustomerRepositoryContract
         return $this->model->where('created_by', $id)->paginate($page);
     }
 
-    public function getListAll()
+    public function getListAll($id)
     {
-        return $this->model->All();
+        return $this->model->where('user_id', $id)->orderBy('id', 'desc')->get();
     }
 
     public function find($id)

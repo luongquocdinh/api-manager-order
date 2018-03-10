@@ -25,9 +25,9 @@ class CustomerService implements CustomerServiceContract
         return $this->repository->paginate($page, $id);
     }
 
-    public function getListAll()
+    public function getListAll($id)
     {
-        return $this->repository->getListAll();
+        return $this->repository->getListAll($id);
     }
 
     public function find($id)

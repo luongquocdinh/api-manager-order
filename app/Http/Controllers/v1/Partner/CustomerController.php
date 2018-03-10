@@ -30,9 +30,11 @@ class CustomerController extends ApiController
         return CustomerResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }
 
-    public function getListAll()
+    public function getListAll(Request $request)
     {
-        $results = $this->service->getListAll();
+        $id = JWTAuth::toUser($request->token)->id;
+
+        $results = $this->service->getListAll($id);
         
         return CustomerResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
     }
