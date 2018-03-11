@@ -158,7 +158,7 @@ class OrderController extends ApiController
     private function rulesProduct()
     {
         return [
-            'delivery_date' => 'required'
+            
         ];
     }
 }
