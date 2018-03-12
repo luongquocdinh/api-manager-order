@@ -35,14 +35,17 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:admin'], 'prefix' => 'v
     Route::post('addRoles', 'v1\Auth\RoleController@addRole');
 });
 
-Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
     // Product
     Route::get('products', 'v1\MasterData\ProductController@getList');
     Route::get('productAll', 'v1\MasterData\ProductController@getListAll');
     Route::get('product/{id}', 'v1\MasterData\ProductController@findProductById');
     Route::post('product', 'v1\MasterData\ProductController@store');
     Route::put('product/{id}', 'v1\MasterData\ProductController@update');
+});
 
+Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
+    
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');
     Route::get('customerAll', 'v1\Partner\CustomerController@getListAll');

@@ -17,7 +17,6 @@ class ProductController extends ApiController
     public function __construct(ProductServiceContract $serviceContract)
     {
         $this->service = $serviceContract;
-        $this->middleware('jwt.auth');
     }
 
     public function getList()
