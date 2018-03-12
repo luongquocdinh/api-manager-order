@@ -46,7 +46,7 @@ class SupplierController extends ApiController
 
     public function store(Request $request)
     {
-        $data = $this->validateData($this->rulesProduct(), $request);
+        $data = $this->validateData($this->rulesSupplier(), $request);
         if (!is_array($data)) {
             return $data;
         }
@@ -90,10 +90,43 @@ class SupplierController extends ApiController
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $id = $request->id;
+        $data = $this->validateData([], $request);
+        
+        if (!is_array($data)) {
+            return $data;
+        }
+        
+        $data['updated_by'] = JWTAuth::toUser($request->token)->id;
+
+        if ($this->service->update($id, $data)) {
+            if ($request->supplier_product) {
+                $this->supplier_product->deleteBySupplier($id);
+                foreach ($request->supplier_product as $key => $supplier_product) {
+                    $supplier_product['supplier_id'] = $id;
+                    $supplier_product['user_id'] = JWTAuth::toUser($request->token)->id;
+                    $supplier_product['created_by'] = JWTAuth::toUser($request->token)->id;
+                    $this->supplier_product->store($supplier_product);
+                }
+            }
+            $supplier = $this->service->find($id);
+            $supplier_product = $supplier->supplier_product;
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'data' => $supplier
+            ]);
+        } else {
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        }
+    } 
+
     /**
      * @return array
      */
-     private function rulesProduct()
+     private function rulesSupplier()
      {
          return [
              'name' => 'required|max:255',

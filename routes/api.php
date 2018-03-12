@@ -80,5 +80,6 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::get('supplierAll', 'v1\Partner\SupplierController@getListAll');
     Route::post('suppliers', 'v1\Partner\SupplierController@store');
     Route::post('supplier', 'v1\Partner\SupplierController@findById');
+    Route::put('supplier', 'v1\Partner\SupplierController@update');
 });
 
