@@ -15,6 +15,10 @@ use App\Repositories\Interfaces\UserRepositoryContract;
 use App\Repositories\Functions\UserRepository;
 use App\Repositories\Interfaces\OutletProductRepositoryContract;
 use App\Repositories\Functions\OutletProductRepository;
+use App\Repositories\Interfaces\SupplierProductRepositoryContract;
+use App\Repositories\Functions\SupplierProductRepository;
+use App\Repositories\Interfaces\SupplierRepositoryContract;
+use App\Repositories\Functions\SupplierRepository;
 
 // Services
 use App\Services\Interfaces\ProductServiceContract;
@@ -29,6 +33,10 @@ use App\Services\Interfaces\UserServiceContract;
 use App\Services\Functions\UserService;
 use App\Services\Interfaces\OutletProductServiceContract;
 use App\Services\Functions\OutletProductService;
+use App\Services\Interfaces\SupplierProductServiceContract;
+use App\Services\Functions\SupplierProductService;
+use App\Services\Interfaces\SupplierServiceContract;
+use App\Services\Functions\SupplierService;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -54,6 +62,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind(SupplierRepositoryContract::class, SupplierRepository::class);
+        $this->app->bind(SupplierServiceContract::class, SupplierService::class);
+
+        $this->app->bind(SupplierProductRepositoryContract::class, SupplierProductRepository::class);
+        $this->app->bind(SupplierProductServiceContract::class, SupplierProductService::class);
+
         $this->app->bind(OutletProductRepositoryContract::class, OutletProductRepository::class);
         $this->app->bind(OutletProductServiceContract::class, OutletProductService::class);
 

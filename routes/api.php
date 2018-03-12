@@ -74,5 +74,11 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::post('byDate', 'v1\Partner\StatisticController@byDate');
     Route::post('byMonth', 'v1\Partner\StatisticController@byMonth');
     Route::post('byYear', 'v1\Partner\StatisticController@byYear');
+
+    // Supplier
+    Route::post('list-supplier', 'v1\Partner\SupplierController@paginate');
+    Route::get('supplierAll', 'v1\Partner\SupplierController@getListAll');
+    Route::post('suppliers', 'v1\Partner\SupplierController@store');
+    Route::post('supplier', 'v1\Partner\SupplierController@findById');
 });
 
