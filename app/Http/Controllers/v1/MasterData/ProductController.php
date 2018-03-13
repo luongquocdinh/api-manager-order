@@ -39,7 +39,7 @@ class ProductController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
-        $data['created_by'] = $request->user()->id;
+        
         $id = $this->service->store($data);
 
         return new ProductResource(optional($this->service->find($id)));
@@ -56,8 +56,6 @@ class ProductController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
-
-        $data['updated_by'] = $request->user()->id;
 
         if ($this->service->update($id, $data)) {
             return new ProductResource(optional($this->service->find($id)));
@@ -84,9 +82,7 @@ class ProductController extends ApiController
     private function rulesProduct()
     {
         return [
-            'name' => 'required|max:255',
-            'price' => 'required|numeric',
-            'uom' => 'required|max:255'
+            'name' => 'required|max:255'
         ];
     }
 }

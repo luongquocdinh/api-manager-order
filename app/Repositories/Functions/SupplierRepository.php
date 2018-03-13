@@ -22,17 +22,17 @@ class SupplierRepository implements SupplierRepositoryContract
 
     public function paginate($page, $id)
     {
-        return $this->model->where('created_by', $id)->paginate($page);
+        return $this->model->with('product')->where('created_by', $id)->paginate($page);
     }
 
     public function getListAll($id)
     {
-        return $this->model->where('user_id', $id)->orderBy('id', 'desc')->get();
+        return $this->model->with('product')->where('user_id', $id)->orderBy('id', 'desc')->get();
     }
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->with('product')->find($id);
     }
 
     public function store($data)
