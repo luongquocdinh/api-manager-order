@@ -8,7 +8,7 @@ class SupplierProduct extends BaseModel
     protected $table = 'supplier_product';
 
     protected $fillable = [
-        'name', 'suppplier_id', 'user_id', 'note', 'created_at', 'created_by',
+        'name', 'supplier_id', 'user_id', 'note', 'created_at', 'created_by',
         'updated_at', 'updated_by'
     ];
 
