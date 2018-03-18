@@ -22,6 +22,7 @@ class CreateTableOrder extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->integer('user_id');
+            $table->integer('amount');
             $table->integer('delivery_date');
             $table->string('note')->nullable();
             $table->integer('created_at')->nullable();
