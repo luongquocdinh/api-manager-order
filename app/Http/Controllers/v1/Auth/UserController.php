@@ -59,7 +59,7 @@ class UserController extends ApiController
         if ($user) {
             if ($user->is_active == 1) {
                 if ($token = JWTAuth::attempt($credentials)) {
-                    return $this->respondWithToken($token);
+                    return $this->respondWithToken($user, $token);
                 }
             }
         }
@@ -97,7 +97,7 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($user, $token)
     {
         return response()->json([
             'success' => true, 
@@ -105,6 +105,7 @@ class UserController extends ApiController
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => $this->guard()->factory()->getTTL() * 60,
+            'user'         => $user
         ]);
     }
 
