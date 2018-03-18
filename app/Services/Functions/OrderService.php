@@ -10,6 +10,7 @@ namespace App\Services\Functions;
 use App\Helpers\Business;
 use App\Repositories\Interfaces\OrderRepositoryContract;
 use App\Services\Interfaces\OrderServiceContract;
+use Carbon\Carbon;
 
 class OrderService implements OrderServiceContract
 {
@@ -53,6 +54,14 @@ class OrderService implements OrderServiceContract
     public function findByCustomer($customer_id)
     {
         return $this->repository->findByCustomer($customer_id);
+    }
+
+    public function getOrderByDate($id, $request)
+    {
+        $start = Carbon::parse($request->start . ' 00:00:00')->timestamp;
+        $end = Carbon::parse($request->end . ' 23:59:59')->timestamp;
+
+        return $this->repository->getOrderByDate($id, $start, $end);
     }
 
 }

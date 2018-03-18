@@ -9,6 +9,7 @@ namespace App\Repositories\Functions;
 
 use App\Models\v1\Order;
 use App\Repositories\Interfaces\OrderRepositoryContract;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\Business;
 
 class OrderRepository implements OrderRepositoryContract
@@ -60,7 +61,17 @@ class OrderRepository implements OrderRepositoryContract
 
     public function findByCustomer($customer_id)
     {
-        return $this->model->with('po_product')->where('customer_id', $customer_id)->paginate(Business::PAGE_NUMBER_DEFAULT);
+        return $this->model->with('po_product')->where('customer_id', $customer_id)->get();
+    }
+
+    public function getOrderByDate($id, $start, $end)
+    {
+        $results = $this->model
+                        ->where('user_id', $id)
+                        ->whereBetween('created_at', [$start, $end])
+                        ->get();
+
+        return $results;
     }
 
 }

@@ -62,6 +62,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 
     Route::put('order/{id}', 'v1\Partner\OrderController@update');
     Route::post('order/customer', 'v1\Partner\OrderController@getListOrderByCustomer');
     Route::delete('order/delete', 'v1\Partner\OrderController@destroy');
+    Route::post('/order/byDate', 'v1\Partner\OrderController@getOrderByDate');
 
     // Outlet Product
     Route::get('outlet-product', 'v1\Partner\OutletProductController@getList');

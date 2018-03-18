@@ -153,6 +153,15 @@ class OrderController extends ApiController
         ]);
     }
 
+    public function getOrderByDate(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+        
+        $results = $this->service->getOrderByDate($id, $request);
+
+        return OrderResource::collection($results)->additional(['status' => HttpCode::SUCCESS, 'message' => 'success']);
+    }
+
     /**
      * @return array
      */

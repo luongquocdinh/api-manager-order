@@ -22,4 +22,6 @@ interface OrderServiceContract
     public function destroy($id);
 
     public function findByCustomer($customer_id);
+
+    public function getOrderByDate($id, $request);
 }
