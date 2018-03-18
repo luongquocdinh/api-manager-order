@@ -53,6 +53,7 @@ class OrderController extends ApiController
             'customer_id' => $request->customer_id,
             'name' => $request->name,
             'address' => $request->address,
+            'amount' => $request->amount,
             'phone' => $request->phone,
             'user_id' => JWTAuth::toUser($request->token)->id,
             'delivery_date' => Carbon::parse($request->delivery_date)->timestamp,
