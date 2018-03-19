@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
+use App\Helpers\Business;
+use App\Helpers\HttpCode;
+use App\Helpers\MessageApi;
 use JWTAuth;
 use Hash;
 use Validator;
@@ -88,6 +91,29 @@ class UserController extends ApiController
             'success' => false,
             'status'  => self::FAILED,
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+        
+        $data = $this->validateData([], $request);
+        if (!is_array($data)) {
+            return $data;
+        }
+        
+        $data['password'] = Hash::make($request->password);
+        $data['updated_by'] = $id;
+
+        if ($this->service->update($id, $data)) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'data' => $this->service->find($id)
+            ]);
+        } else {
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        }
     }
 
     /**

@@ -46,6 +46,9 @@ Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
 
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
     
+    // User
+    Route::put('user/change-password', 'v1\Auth\UserController@update');
+
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');
     Route::get('customerAll', 'v1\Partner\CustomerController@getListAll');
