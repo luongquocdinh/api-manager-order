@@ -101,7 +101,13 @@ class UserController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
-        
+        $user = $this->service->find($id);
+        if (!Hash::check($data['old_password'], $user->password)) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Old Password is not correct'
+            ]);
+        }
         $data['password'] = Hash::make($request->password);
         $data['updated_by'] = $id;
 
