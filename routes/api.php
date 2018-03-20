@@ -44,10 +44,14 @@ Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
     Route::put('product/{id}', 'v1\MasterData\ProductController@update');
 });
 
+Route::group(['middleware' => ['jwt.auth', 'cors', 'role:manager'], 'prefix' => 'v1'], function () {
+    Route::put('user/update', 'v1\Auth\UserController@update');
+});
+
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
     
     // User
-    Route::put('user/change-password', 'v1\Auth\UserController@update');
+    Route::put('user/change-password', 'v1\Auth\UserController@changePassword');
 
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');

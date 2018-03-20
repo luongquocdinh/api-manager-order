@@ -62,7 +62,16 @@ class UserController extends ApiController
         if ($user) {
             if ($user->is_active == 1) {
                 if ($token = JWTAuth::attempt($credentials)) {
-                    return $this->respondWithToken($user, $token);
+                    $roles = $user->roles()->get();
+                    $list_role = [];
+                    foreach ($roles as $role) {
+                        array_push($list_role, [
+                            'role_id'     => $role->id,
+                            'name'        => $role->name,
+                            'description' => $role->description,
+                        ]);
+                    }
+                    return $this->respondWithToken($user, $list_role, $token);
                 }
             }
         }
@@ -93,7 +102,7 @@ class UserController extends ApiController
         ]);
     }
 
-    public function update(Request $request)
+    public function changePassword(Request $request)
     {
         $id = JWTAuth::toUser($request->token)->id;
         
@@ -122,6 +131,26 @@ class UserController extends ApiController
         }
     }
 
+    public function update(Request $request)
+    {
+        $id = $request->id;
+        $data = $this->validateData([], $request);
+        if (!is_array($data)) {
+            return $data;
+        }
+
+        if ($this->service->update($id, $data)) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success',
+                'data' => $this->service->find($id)
+            ]);
+        } else {
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        }
+        
+    }
+
     /**
      * Get the token array structure.
      *
@@ -129,7 +158,7 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($user, $token)
+    protected function respondWithToken($user, $list_role, $token)
     {
         return response()->json([
             'success' => true, 
@@ -137,7 +166,8 @@ class UserController extends ApiController
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => $this->guard()->factory()->getTTL() * 60,
-            'user'         => $user
+            'user'         => $user,
+            'role'         => $list_role
         ]);
     }
 

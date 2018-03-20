@@ -64,12 +64,20 @@ class OrderRepository implements OrderRepositoryContract
         return $this->model->with('po_product')->where('customer_id', $customer_id)->get();
     }
 
-    public function getOrderByDate($id, $start, $end)
+    public function getOrderByDate($id, $start, $end, $request)
     {
-        $results = $this->model
-                        ->where('user_id', $id)
-                        ->whereBetween('created_at', [$start, $end])
-                        ->get();
+        if (!$request->customer_id) {
+            $results = $this->model
+                            ->where('user_id', $id)
+                            ->whereBetween('created_at', [$start, $end])
+                            ->get();
+        } else {
+            $results = $this->model
+                ->where('user_id', $id)
+                ->where('customer_id', $request->customer_id)
+                ->whereBetween('created_at', [$start, $end])
+                ->get();
+        }
 
         return $results;
     }

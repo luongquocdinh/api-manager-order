@@ -23,5 +23,5 @@ interface OrderRepositoryContract
 
     public function findByCustomer($customer_id);
 
-    public function getOrderByDate($id, $start, $end);
+    public function getOrderByDate($id, $start, $end, $request);
 }

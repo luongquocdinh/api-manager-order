@@ -60,8 +60,8 @@ class OrderService implements OrderServiceContract
     {
         $start = Carbon::parse($request->start . ' 00:00:00')->timestamp;
         $end = Carbon::parse($request->end . ' 23:59:59')->timestamp;
-
-        return $this->repository->getOrderByDate($id, $start, $end);
+        
+        return $this->repository->getOrderByDate($id, $start, $end, $request);   
     }
 
 }
