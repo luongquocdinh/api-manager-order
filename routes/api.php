@@ -46,6 +46,7 @@ Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
 
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:manager'], 'prefix' => 'v1'], function () {
     Route::put('user/update', 'v1\Auth\UserController@update');
+    Route::post('user/addUser', 'v1\Auth\UserController@addUser');
 });
 
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {

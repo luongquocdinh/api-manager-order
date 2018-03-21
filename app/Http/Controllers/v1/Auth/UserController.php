@@ -16,6 +16,7 @@ use Validator;
 use JWTAuthException;
 use App\Models\v1\User;
 use App\Models\v1\Role;
+use App\Models\v1\Outlet;
 use App\Services\Interfaces\UserServiceContract;
 
 
@@ -40,6 +41,11 @@ class UserController extends ApiController
         if (!is_array($data)) {
             return $data;
         }
+        $outlet_id = Outlet::create([
+            'name' => $request->name
+        ])->id;
+        
+        $data['outlet_id'] = $outlet_id;
         $data['password'] = Hash::make($request->password);
         $role = $request->role ? $request->role : [2];
         $id = $this->service->store($data);     
@@ -77,6 +83,37 @@ class UserController extends ApiController
         }
 
         return response()->json(['success' => false, 'status' => self::FAILED, 'error' => 'Unauthorized']);
+    }
+
+    public function addUser(Request $request)
+    {
+        $user_id = JWTAuth::toUser($request->token)->id;
+
+        $user = $this->service->find($user_id);
+
+        $outlet_id = $user->outlet_id;
+
+        $outlet = Outlet::find($outlet_id);
+
+        $data = $this->validateData([], $request);
+        if (!is_array($data)) {
+            return $data;
+        }
+        $data['name'] = $outlet->name;
+        $data['outlet_id'] = $outlet->id;
+
+        $role = $request->role ? $request->role : [2];
+        $id = $this->service->store($data);     
+        if ($id) {
+            $user = $this->service->find($id);
+            $user->attachRoles($role);
+        }
+
+        return response()->json([
+            'success' => true,
+            'status'  => self::SUCCESS,
+            'data'    => $this->service->find($id)
+        ]);
     }
 
     /**
