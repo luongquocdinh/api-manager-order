@@ -70,14 +70,18 @@ class UserController extends ApiController
                 if ($token = JWTAuth::attempt($credentials)) {
                     $roles = $user->roles()->get();
                     $list_role = [];
+                    $list_user = [];
                     foreach ($roles as $role) {
+                        if ($role->name = 'manager' && isset($user->outlet_id)) {
+                            $list_user = $this->getListUserOutlet($user->outlet_id);
+                        }
                         array_push($list_role, [
                             'role_id'     => $role->id,
                             'name'        => $role->name,
                             'description' => $role->description,
                         ]);
                     }
-                    return $this->respondWithToken($user, $list_role, $token);
+                    return $this->respondWithToken($user, $list_role, $token, $list_user);
                 }
             }
         }
@@ -189,6 +193,13 @@ class UserController extends ApiController
         
     }
 
+    public function getListUserOutlet($outlet_id)
+    {
+        $users = User::where('outlet_id', $outlet_id)->get();
+
+        return $users;
+    }
+
     /**
      * Get the token array structure.
      *
@@ -196,7 +207,7 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($user, $list_role, $token)
+    protected function respondWithToken($user, $list_role, $token, $list_user)
     {
         return response()->json([
             'success' => true, 
@@ -205,7 +216,8 @@ class UserController extends ApiController
             'token_type'   => 'bearer',
             'expires_in'   => $this->guard()->factory()->getTTL() * 60,
             'user'         => $user,
-            'role'         => $list_role
+            'role'         => $list_role,
+            'member'       => $list_user
         ]);
     }
 
