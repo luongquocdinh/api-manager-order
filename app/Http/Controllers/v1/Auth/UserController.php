@@ -100,6 +100,7 @@ class UserController extends ApiController
             return $data;
         }
         $data['name'] = $outlet->name;
+        $data['password'] = Hash::make($request->password);
         $data['outlet_id'] = $outlet->id;
 
         $role = $request->role ? $request->role : [2];
