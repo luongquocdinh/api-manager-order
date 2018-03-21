@@ -47,7 +47,7 @@ class UserController extends ApiController
         
         $data['outlet_id'] = $outlet_id;
         $data['password'] = Hash::make($request->password);
-        $role = $request->role ? $request->role : [2];
+        $role = $request->role ? $request->role : [3];
         $id = $this->service->store($data);     
         if ($id) {
             $user = $this->service->find($id);
@@ -95,7 +95,7 @@ class UserController extends ApiController
 
         $outlet = Outlet::find($outlet_id);
 
-        $data = $this->validateData([], $request);
+        $data = $this->validateData($this->rulesUser(), $request);
         if (!is_array($data)) {
             return $data;
         }
@@ -224,7 +224,6 @@ class UserController extends ApiController
      private function rulesUser()
      {
          return [
-            'name'        => 'required|max:255',
             'email'       => 'required|email|max:255|unique:users',
             'password'    => 'required|min:6',
          ];
