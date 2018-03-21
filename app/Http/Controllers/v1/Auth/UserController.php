@@ -47,7 +47,7 @@ class UserController extends ApiController
         
         $data['outlet_id'] = $outlet_id;
         $data['password'] = Hash::make($request->password);
-        $role = $request->role ? $request->role : [3];
+        $role = $request->role ? $request->role : [11];
         $id = $this->service->store($data);     
         if ($id) {
             $user = $this->service->find($id);
