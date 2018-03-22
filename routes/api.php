@@ -49,7 +49,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors', 'role:manager'], 'prefix' => 
     Route::post('user/addUser', 'v1\Auth\UserController@addUser');
 });
 
-Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner'], 'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner|manager|admin'], 'prefix' => 'v1'], function () {
     
     // User
     Route::put('user/change-password', 'v1\Auth\UserController@changePassword');
