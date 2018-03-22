@@ -18,10 +18,15 @@ use App\Models\v1\User;
 use App\Models\v1\Role;
 use App\Models\v1\Outlet;
 use App\Services\Interfaces\UserServiceContract;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificationMail;
+use Sichikawa\LaravelSendgridDriver\SendGrid;
 
 
 class UserController extends ApiController
 {
+    use SendGrid;
+
     public function __construct(UserServiceContract $serviceContract)
     {
         $this->service = $serviceContract;
@@ -47,17 +52,17 @@ class UserController extends ApiController
         
         $data['outlet_id'] = $outlet_id;
         $data['password'] = Hash::make($request->password);
-        $role = $request->role ? $request->role : [11];
+        $role = $request->role ? $request->role : [3];
         $id = $this->service->store($data);     
         if ($id) {
             $user = $this->service->find($id);
             $user->attachRoles($role);
         }
-
+        $this->sendMail(self::MAIL_1, $request);
         return response()->json([
             'success' => true,
             'status'  => self::SUCCESS,
-            'data'    => $this->service->find($id)
+            // 'data'    => $this->service->find($id)
         ]);
     }
 
@@ -72,7 +77,7 @@ class UserController extends ApiController
                     $list_role = [];
                     $list_user = [];
                     foreach ($roles as $role) {
-                        if ($role->name = 'manager' && isset($user->outlet_id)) {
+                        if ($role->name == 'manager' && isset($user->outlet_id)) {
                             $list_user = $this->getListUserOutlet($user->outlet_id);
                         }
                         array_push($list_role, [
@@ -87,6 +92,44 @@ class UserController extends ApiController
         }
 
         return response()->json(['success' => false, 'status' => self::FAILED, 'error' => 'Unauthorized']);
+    }
+    
+    public function find(Request $request)
+    {
+        $id = $request->id;
+        $user = $this->service->find($id);
+        
+        return response()->json([
+            'success' => true,
+            'status'  => self::SUCCESS,
+            'data'    => $user
+        ]); 
+    }
+    
+    public function detail(Request $request)
+    {
+        $id = JWTAuth::toUser($request->token)->id;
+        $user = $this->service->find($id);
+        $roles = $user->roles()->get();
+        $list_role = [];
+        $list_user = [];
+        foreach ($roles as $role) {
+            array_push($list_role, [
+                'role_id'     => $role->id,
+                'name'        => $role->name,
+                'description' => $role->description,
+            ]);
+        }
+        if (isset($user->outlet_id)) {
+            $list_user = $this->getListUserOutlet($user->outlet_id);
+        }
+        return response()->json([
+            'success' => true,
+            'status'  => self::SUCCESS,
+            'user'    => $user,
+            'list_role' => $list_role,
+            'member' => $list_user
+        ]);
     }
 
     public function addUser(Request $request)
@@ -234,11 +277,16 @@ class UserController extends ApiController
     /**
      * @return array
      */
-     private function rulesUser()
-     {
-         return [
-            'email'       => 'required|email|max:255|unique:users',
-            'password'    => 'required|min:6',
-         ];
-     }
+    private function rulesUser()
+    {
+        return [
+        'email'       => 'required|email|max:255|unique:users',
+        'password'    => 'required|min:6',
+        ];
+    }
+
+    private function sendMail($email, $request)
+    {
+        Mail::to($email)->send(new NotificationMail($request));
+    }
 }

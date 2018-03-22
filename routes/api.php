@@ -47,12 +47,14 @@ Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:manager'], 'prefix' => 'v1'], function () {
     Route::put('user/update', 'v1\Auth\UserController@update');
     Route::post('user/addUser', 'v1\Auth\UserController@addUser');
+    Route::get('user/detail', 'v1\Auth\UserController@detail');
 });
 
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:partner|manager|admin'], 'prefix' => 'v1'], function () {
     
     // User
     Route::put('user/change-password', 'v1\Auth\UserController@changePassword');
+    Route::post('/user/find', 'v1\Auth\UserController@find');
 
     // Customer
     Route::get('customers', 'v1\Partner\CustomerController@getList');
