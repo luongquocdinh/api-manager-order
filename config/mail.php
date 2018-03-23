@@ -9,11 +9,11 @@ return [
         
         'encryption' => 'tls',
 
-        'from' => ['address' => 'ppmsvn@gmail.com', 'name' => 'PPMS VN'],
+        'from' => ['address' => 'example@gmail.com', 'name' => 'Example'],
         
-        'username' => 'ppmsvn',
+        'username' => 'example',
         
-        'password' => 'ppmsvn@1234',
+        'password' => 'your-password',
         
         'sendmail' => '/usr/sbin/sendmail -bs' 
 ];
