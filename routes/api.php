@@ -29,6 +29,8 @@ Route::post('/', function (Request $request) {
 Route::group(['middleware' => ['cors'], 'prefix' => 'v1'], function () {
     Route::post('register', 'v1\Auth\UserController@register');
     Route::post('login', 'v1\Auth\UserController@login');
+    Route::post('sendCode', 'v1\Auth\UserController@sendCode');
+    Route::post('reset-password', 'v1\Auth\UserController@resetPassword');
 });
 
 Route::group(['middleware' => ['jwt.auth', 'cors', 'role:admin'], 'prefix' => 'v1'], function () {

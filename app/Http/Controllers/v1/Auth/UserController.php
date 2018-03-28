@@ -20,6 +20,7 @@ use App\Models\v1\Outlet;
 use App\Services\Interfaces\UserServiceContract;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotificationMail;
+use App\Mail\Fotgotpassword;
 use Sichikawa\LaravelSendgridDriver\SendGrid;
 
 
@@ -30,7 +31,7 @@ class UserController extends ApiController
     public function __construct(UserServiceContract $serviceContract)
     {
         $this->service = $serviceContract;
-        $this->middleware('jwt.auth', ['except' => ['register', 'login']]);
+        $this->middleware('jwt.auth', ['except' => ['register', 'login', 'sendCode', 'resetPassword']]);
     }
 
     /**
@@ -164,6 +165,51 @@ class UserController extends ApiController
         ]);
     }
 
+    public function sendCode(Request $request)
+    {
+        $user = $this->service->findByEmail($request->email);
+        if (!$user) {
+            return response()->json([
+                'status' => self::FAILED,
+                'message' => 'mail is not extis'
+            ]);
+        }
+       
+        $code = $this->generate_code();
+    
+        $user->api_token = $code;
+        $user->save();
+        $this->sendMailResetPassword($request, $code);
+
+        return response()->json([
+            'status' => self::SUCCESS,
+            'message' => 'send mail success'
+        ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $user = $this->service->findUserByCode($request);
+        
+        if (!$user) {
+            return response()->json([
+                'status' => self::FAILED,
+                'message' => 'mail or code is not match'
+            ]);
+        }
+    
+        $user->password = Hash::make($request->password);
+        $user->api_token = $this->generate_code();
+        if ($user->save()) {
+            return response()->json([
+                'status' => self::SUCCESS,
+                'message' => 'reset password success, please login again!!!'
+            ]);
+        } else {
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        }
+    }
+
     /**
      * Get the authenticated User
      *
@@ -288,5 +334,21 @@ class UserController extends ApiController
     private function sendMail($email, $request)
     {
         Mail::to($email)->send(new NotificationMail($request));
+    }
+
+    private function sendMailResetPassword($request, $code)
+    {
+        Mail::to($request->email)->send(new Fotgotpassword($code));
+    }
+
+    private function generate_code()
+    {
+        $uniqid = uniqid();
+        
+        $rand_start = rand(1,5);
+        
+        $code = substr($uniqid,$rand_start,8);
+
+        return $code;
     }
 }

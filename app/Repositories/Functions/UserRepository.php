@@ -58,4 +58,12 @@ class UserRepository implements UserRepositoryContract
         return $model->delete();
     }
 
+    public function findUserByCode($request)
+    {
+        return $this->model
+            ->where('email', $request->email)
+            ->where('api_token', $request->code)
+            ->first();
+    }
+
 }

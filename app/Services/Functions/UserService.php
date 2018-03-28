@@ -50,4 +50,9 @@ class UserService implements UserServiceContract
         return $this->repository->destroy($id);
     }
 
+    public function findUserByCode($request)
+    {
+        return $this->repository->findUserByCode($request);
+    }
+
 }
