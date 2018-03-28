@@ -43,7 +43,7 @@ class UserController extends ApiController
      */
     public function register(Request $request)
     {   
-        $data = $this->validateData($this->rulesUser(), $request);
+        $data = $this->validateUser($this->rulesUser(), $request);
         if (!is_array($data)) {
             return $data;
         }
@@ -62,8 +62,7 @@ class UserController extends ApiController
         $this->sendMail(self::MAIL_1, $request);
         return response()->json([
             'success' => true,
-            'status'  => self::SUCCESS,
-            // 'data'    => $this->service->find($id)
+            'status'  => self::SUCCESS
         ]);
     }
 
@@ -92,7 +91,7 @@ class UserController extends ApiController
             }
         }
 
-        return response()->json(['success' => false, 'status' => self::FAILED, 'error' => 'Unauthorized']);
+        return response()->json(['success' => false, 'status' => self::FAILED, 'error' => 'Login không thành công! Vui lòng kiểm tra lại!']);
     }
     
     public function find(Request $request)
@@ -143,7 +142,7 @@ class UserController extends ApiController
 
         $outlet = Outlet::find($outlet_id);
 
-        $data = $this->validateData($this->rulesUser(), $request);
+        $data = $this->validateUser($this->rulesUser(), $request);
         if (!is_array($data)) {
             return $data;
         }
@@ -171,7 +170,7 @@ class UserController extends ApiController
         if (!$user) {
             return response()->json([
                 'status' => self::FAILED,
-                'message' => 'mail is not extis'
+                'message' => 'Email không tồn tại'
             ]);
         }
        
@@ -183,7 +182,7 @@ class UserController extends ApiController
 
         return response()->json([
             'status' => self::SUCCESS,
-            'message' => 'send mail success'
+            'message' => 'Code đã được gửi tới mail của bạn'
         ]);
     }
 
@@ -194,7 +193,7 @@ class UserController extends ApiController
         if (!$user) {
             return response()->json([
                 'status' => self::FAILED,
-                'message' => 'mail or code is not match'
+                'message' => 'Email hoặc code không chính xác'
             ]);
         }
     
@@ -203,10 +202,10 @@ class UserController extends ApiController
         if ($user->save()) {
             return response()->json([
                 'status' => self::SUCCESS,
-                'message' => 'reset password success, please login again!!!'
+                'message' => 'Password được cập nhật thành công. Vui lòng đăng nhập lại!!!'
             ]);
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
     }
 
@@ -245,7 +244,7 @@ class UserController extends ApiController
         if (!Hash::check($data['old_password'], $user->password)) {
             return response()->json([
                 'status' => 403,
-                'message' => 'Old Password is not correct'
+                'message' => 'Password cũ không chính xác'
             ]);
         }
         $data['password'] = Hash::make($request->password);
@@ -258,7 +257,7 @@ class UserController extends ApiController
                 'data' => $this->service->find($id)
             ]);
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
     }
 
@@ -277,7 +276,7 @@ class UserController extends ApiController
                 'data' => $this->service->find($id)
             ]);
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
         
     }

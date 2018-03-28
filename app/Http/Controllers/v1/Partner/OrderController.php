@@ -121,7 +121,7 @@ class OrderController extends ApiController
                 'data' => $order
             ]);
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
     }
 
@@ -138,7 +138,7 @@ class OrderController extends ApiController
             return \response()->json(MessageApi::success([]), HttpCode::SUCCESS);
         }
 
-        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOES_NOT_EXISTS]));
+        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOES_NOT_EXISTS));
     }
 
     public function getListOrderByCustomer(Request $request)

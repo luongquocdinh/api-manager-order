@@ -59,7 +59,7 @@ class OutletProductController extends ApiController
         if ($this->service->update($id, $data)) {
             return new OutletProductResource(optional($this->service->find($id)));
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
     }
 
@@ -72,7 +72,7 @@ class OutletProductController extends ApiController
             return \response()->json(MessageApi::success([]), HttpCode::SUCCESS);
         }
 
-        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+        return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
     }
 
     /**

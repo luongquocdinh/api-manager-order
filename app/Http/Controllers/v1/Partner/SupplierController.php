@@ -119,7 +119,7 @@ class SupplierController extends ApiController
                 'data' => $supplier
             ]);
         } else {
-            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, [MessageApi::ITEM_DOSE_NOT_EXISTS]));
+            return \response()->json(MessageApi::error(HttpCode::NOT_VALID_INFORMATION, MessageApi::ITEM_DOSE_NOT_EXISTS));
         }
     } 
 
